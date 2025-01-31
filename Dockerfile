@@ -14,17 +14,14 @@ RUN mkdir /ocserv-bin && \
 
 FROM alpine:latest
 LABEL Maintainer="lans.rf@gmail.com"
+EXPOSE 443
 
 RUN apk update && \
-    apk add llhttp protobuf oath-toolkit libev lz4 lz4-libs gnutls libnl3 protobuf-c libseccomp && \
+    apk add llhttp protobuf oath-toolkit libev lz4 lz4-libs gnutls libnl3 protobuf-c libseccomp \
+    iptables && \
     addgroup -S ocserv && adduser -S ocserv -G ocserv && \
     mkdir /ocserv/
 COPY --from=builder /ocserv-bin /ocserv/dist
+COPY entrypoint.sh /ocserv/entrypoint.sh
 
-ENTRYPOINT [ \
-  "/ocserv/dist/sbin/ocserv",  \
-  "--foreground", \
-  "--debug", "5", \
-  "--pid-file", "/run/ocserv.pid", \
-  "--config", "/ocserv/conf/ocserv.conf" ]
-
+ENTRYPOINT [ "/bin/sh", "/ocserv/entrypoint.sh" ]
