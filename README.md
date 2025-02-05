@@ -1,13 +1,15 @@
-# ocserv-docker 
-Sources for the docker image of the OpenConnect server
+# selfhosted-docker 
+Sources and docker configuration for personal "ecosystem"
   
-## Building
+## Openconnect
+
+### Building
 
 ```bash
 docker build -t ocserv .
 ```
 
-## Running as is
+### Running as is
 
 Requirements:
 * /conf &mdash; folder with the config files (e.g. ocserv.conf, passwd, etc)
@@ -18,8 +20,3 @@ Requirements:
 ```bash
 docker run --name ocserv -v ./conf:/ocserv/conf -v  /etc/letsencrypt/archive:/cert --sysctl net.ipv4.ip_forward=1 --cap-add=NET_ADMIN -p 443:443 ocserv
 ```
-
-## Running in docker compose
-
-To be done
-
