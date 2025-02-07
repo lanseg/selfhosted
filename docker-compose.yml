@@ -6,6 +6,20 @@ services:
       - 8123:8123
     volumes:
       - ./volumes/ha-config:/config
+  tor:
+    build: ./tor
+    volumes:
+      - ./volumes/tor:/config
+  i2pd:
+    build: ./i2pd
+    volumes:
+      - ./volumes/i2pd:/home/i2pd
+  privoxy:
+    build: ./privoxy
+    ports:
+      - 8118:8118
+    volumes:
+      - ./volumes/privoxy:/config/
   ocserv:
     build: ./ocserv
     ports:
