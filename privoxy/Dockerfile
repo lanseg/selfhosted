@@ -12,14 +12,13 @@ RUN mkdir /privoxy && \
 
 FROM alpine:latest
 LABEL Maintainer="lans.rf@gmail.com"
-EXPOSE 4444
 
+COPY --from=builder /privoxy /privoxy
 RUN apk update && \
     apk add zlib pcre brotli curl && \
     addgroup -S privoxy && adduser -S privoxy -G privoxy && \
-    mkdir /privoxy/ && chown privoxy:privoxy /privoxy
+    chown -R privoxy:privoxy /privoxy
 
 USER privoxy
-COPY --from=builder /privoxy /privoxy
 
 ENTRYPOINT [ "/privoxy/sbin/privoxy", "--no-daemon", "/config/privoxy.conf"]

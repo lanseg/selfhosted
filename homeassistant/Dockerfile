@@ -16,7 +16,7 @@ FROM python:3.13-alpine
 LABEL Maintainer="lans.rf@gmail.com"
 
 COPY --from=builder /hass/dist /hass/dist
-RUN apk update && \
+RUN apk update && apk add gcc g++ make musl-dev linux-headers && \
     addgroup -S hass && adduser -S hass -G hass && \
     chown -R hass:hass /hass 
 

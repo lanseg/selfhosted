@@ -13,7 +13,6 @@ RUN mkdir /tor/ && \
 
 FROM alpine:latest
 LABEL Maintainer="lans.rf@gmail.com"
-EXPOSE 8888
 
 COPY --from=builder /tor /tor
 RUN apk update && \

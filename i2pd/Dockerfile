@@ -12,7 +12,6 @@ RUN mkdir /i2pd && \
 
 FROM alpine:latest
 LABEL Maintainer="lans.rf@gmail.com"
-EXPOSE 4444
 
 RUN apk update && \
     apk add boost openssl zlib curl && \
