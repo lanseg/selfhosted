@@ -9,10 +9,11 @@ RUN mkdir /tor/ && \
     cd /tor-src && \
     ./autogen.sh && \
     ./configure --prefix=/tor/ --disable-manpage --disable-asciidoc --disable-html-manual && \
-    make && make install 
+    make && make install
 
 FROM alpine:latest
 LABEL Maintainer="lans.rf@gmail.com"
+EXPOSE 8888
 
 COPY --from=builder /tor /tor
 RUN apk update && \

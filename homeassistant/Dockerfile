@@ -11,14 +11,14 @@ RUN python -m venv /hass/venv && \
     cd /hass/core-src && \
     python3 -m pip wheel . --wheel-dir=/hass/dist/
 
-# Main 
+# Main
 FROM python:3.13-alpine
 LABEL Maintainer="lans.rf@gmail.com"
 
 COPY --from=builder /hass/dist /hass/dist
-RUN apk update && apk add gcc g++ make musl-dev linux-headers && \
+RUN apk update && \
     addgroup -S hass && adduser -S hass -G hass && \
-    chown -R hass:hass /hass 
+    chown -R hass:hass /hass
 
 USER hass
 RUN python -m venv /hass/venv && . /hass/venv/bin/activate && \

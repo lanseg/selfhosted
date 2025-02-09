@@ -1,5 +1,5 @@
 #!/bin/sh
-set -euo pipefail 
+set -euo pipefail
 mkdir /dev/net
 mknod /dev/net/tun c 10 200
 chmod 600 /dev/net/tun

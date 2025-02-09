@@ -10,7 +10,7 @@ RUN mkdir /ocserv-bin && \
     cd /ocserv-src && \
     autoreconf -fvi && \
     ./configure --prefix=/ocserv-bin/ &&  \
-    make && make install 
+    make && make install
 
 FROM alpine:latest
 LABEL Maintainer="lans.rf@gmail.com"
@@ -18,7 +18,7 @@ EXPOSE 443
 
 RUN apk update && \
     apk add llhttp protobuf oath-toolkit libev lz4 lz4-libs gnutls libnl3 protobuf-c libseccomp \
-    iptables && \
+    iptables readline && \
     addgroup -S ocserv && adduser -S ocserv -G ocserv && \
     mkdir /ocserv/
 COPY --from=builder /ocserv-bin /ocserv/dist

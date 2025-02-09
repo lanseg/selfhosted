@@ -8,17 +8,18 @@ RUN apk update && \
 RUN mkdir /privoxy && \
     cd /privoxy-src && \
     autoheader && autoconf && ./configure --with-brotli --prefix=/privoxy/ && \
-    make && make install 
+    make && make install
 
 FROM alpine:latest
 LABEL Maintainer="lans.rf@gmail.com"
+EXPOSE 4444
 
-COPY --from=builder /privoxy /privoxy
 RUN apk update && \
     apk add zlib pcre brotli curl && \
     addgroup -S privoxy && adduser -S privoxy -G privoxy && \
-    chown -R privoxy:privoxy /privoxy
+    mkdir /privoxy/ && chown privoxy:privoxy /privoxy
 
 USER privoxy
+COPY --from=builder /privoxy /privoxy
 
 ENTRYPOINT [ "/privoxy/sbin/privoxy", "--no-daemon", "/config/privoxy.conf"]

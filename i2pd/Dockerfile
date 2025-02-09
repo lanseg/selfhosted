@@ -8,10 +8,11 @@ RUN apk update && \
 RUN mkdir /i2pd && \
     cd /i2pd-src/build && \
     cmake -DCMAKE_INSTALL_PREFIX=/i2pd -DWITH_HARDENING=ON -DCMAKE_BUILD_TYPE=Release && \
-    make && make install 
+    make && make install
 
 FROM alpine:latest
 LABEL Maintainer="lans.rf@gmail.com"
+EXPOSE 4444
 
 RUN apk update && \
     apk add boost openssl zlib curl && \
