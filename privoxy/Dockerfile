@@ -1,5 +1,5 @@
 FROM alpine:latest AS builder
-LABEL Maintainer="lans.rf@gmail.com"
+LABEL org.opencontainers.image.authors="lans.rf@gmail.com"
 
 RUN apk update && \
     apk add git make automake autoconf gcc g++ zlib-dev pcre-dev brotli-dev && \
@@ -11,7 +11,7 @@ RUN mkdir /privoxy && \
     make && make install
 
 FROM alpine:latest
-LABEL Maintainer="lans.rf@gmail.com"
+LABEL org.opencontainers.image.authors="lans.rf@gmail.com"
 EXPOSE 4444
 
 RUN apk update && \

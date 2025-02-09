@@ -1,5 +1,5 @@
 FROM alpine:latest AS builder
-LABEL Maintainer="lans.rf@gmail.com"
+LABEL org.opencontainers.image.authors="lans.rf@gmail.com"
 
 RUN apk update && \
     apk add git autoconf make gcc g++ pkgconf automake protobuf protobuf-c protobuf-c-dev gperf \
@@ -13,7 +13,7 @@ RUN mkdir /ocserv-bin && \
     make && make install
 
 FROM alpine:latest
-LABEL Maintainer="lans.rf@gmail.com"
+LABEL org.opencontainers.image.authors="lans.rf@gmail.com"
 EXPOSE 443
 
 RUN apk update && \

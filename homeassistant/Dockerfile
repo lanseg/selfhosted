@@ -1,5 +1,5 @@
 FROM python:3.13-alpine AS builder
-LABEL Maintainer="lans.rf@gmail.com"
+LABEL org.opencontainers.image.authors="lans.rf@gmail.com"
 
 RUN apk update && \
     apk add git gcc g++ python3-dev musl-dev linux-headers && \

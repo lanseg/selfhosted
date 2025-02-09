@@ -1,5 +1,5 @@
 FROM alpine:latest AS builder
-LABEL Maintainer="lans.rf@gmail.com"
+LABEL org.opencontainers.image.authors="lans.rf@gmail.com"
 
 RUN apk update && \
     apk add git automake autoconf gcc g++ libevent-dev openssl-dev zlib-dev make && \
@@ -12,7 +12,7 @@ RUN mkdir /tor/ && \
     make && make install
 
 FROM alpine:latest
-LABEL Maintainer="lans.rf@gmail.com"
+LABEL org.opencontainers.image.authors="lans.rf@gmail.com"
 EXPOSE 8888
 
 COPY --from=builder /tor /tor

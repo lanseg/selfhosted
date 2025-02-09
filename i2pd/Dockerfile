@@ -1,5 +1,5 @@
 FROM alpine:latest AS builder
-LABEL Maintainer="lans.rf@gmail.com"
+LABEL org.opencontainers.image.authors="lans.rf@gmail.com"
 
 RUN apk update && \
     apk add git cmake make gcc g++ zlib-dev openssl-dev boost-dev  && \
@@ -11,7 +11,7 @@ RUN mkdir /i2pd && \
     make && make install
 
 FROM alpine:latest
-LABEL Maintainer="lans.rf@gmail.com"
+LABEL org.opencontainers.image.authors="lans.rf@gmail.com"
 EXPOSE 4444
 
 RUN apk update && \
