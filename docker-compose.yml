@@ -1,5 +1,36 @@
-
 services:
+  certbot:
+    build: ./certbot
+    ports:
+      - 80:80
+    volumes:
+      - ./volumes/certbot:/certbot/data
+    deploy:
+      resources:
+        limits:
+          memory: 32M
+        reservations:
+          memory: 16M
+  ocserv:
+    build: ./ocserv
+    ports:
+      - 443:443
+    volumes:
+      - ./volumes/ocserv/conf:/ocserv/conf
+      - ./volumes/certbot/config/archive:/cert
+    depends_on:
+      certbot:
+        condition: service_completed_successfully    
+    deploy:
+      resources:
+        limits:
+          memory: 32M
+        reservations:
+          memory: 16M
+    sysctls:
+      - net.ipv4.ip_forward=1
+    cap_add:
+      - NET_ADMIN
   homeassistant:
     build: ./homeassistant
     ports:
@@ -44,20 +75,3 @@ services:
           memory: 16M
         reservations:
           memory: 8M
-  ocserv:
-    build: ./ocserv
-    ports:
-      - 443:443
-    volumes:
-      - ./volumes/ocserv/conf:/ocserv/conf
-      - /etc/letsencrypt/archive:/cert
-    deploy:
-      resources:
-        limits:
-          memory: 32M
-        reservations:
-          memory: 16M
-    sysctls:
-      - net.ipv4.ip_forward=1
-    cap_add:
-      - NET_ADMIN

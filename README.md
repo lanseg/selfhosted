@@ -2,6 +2,7 @@
 
 Sources and docker configuration for personal "ecosystem". Now the "ecosystem" contains of the following services:
 * OpenConnect &mdash; for connecting to the local network from the outside
+* Certbot &mdash; for refreshing OpenConnect certificate
 * Tor, i2pd and Privoxy for privacy
 * Home Assistant &mdash; for managing my smart lamps
 
@@ -50,6 +51,23 @@ Configuring routes:
 iptables -t nat -A POSTROUTING -j MASQUERADE -s 10.10.11.0/24
 ```
 That is a part of entrypoint script.
+
+## Certbot
+### Building
+```bash
+docker build -t certbot .
+```
+
+### Running
+```bash
+docker run -e DOMAINS=my.domain.name -e EMAIL=my_email@host.domain -e DRY_RUN=false -it -p 80:80 -v ./data:/certbot/data certbot
+```
+
+### Configuration
+I use http confirmation to confirm my domain ownership when obtaining a certificate, and using 80 port is inevitable. But the service starts and stops, so it won't block the port for other applications. Other required options are:
+* DOMAINS &mdash; to define domain names assigned to this machine
+* EMAIL &mdash; owner's email
+* /certbot/data volume &mdash; a volume to store the certificates and work data.
 
 ## i2pd
 ### Building
