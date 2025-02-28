@@ -20,7 +20,8 @@ COPY --from=builder /certbot/dist ./dist
 COPY entrypoint.sh .
 RUN apk update && apk add --no-cache python3 py3-pip && \
     python -m venv venv && . ./venv/bin/activate && python -m pip install dist/*whl && \ 
-    addgroup -S certbot && adduser -S certbot -G certbot && chown -Rv certbot:certbot /certbot
+    addgroup -S certbot && adduser -S certbot -G certbot && chown -Rv certbot:certbot /certbot && \
+    chmod a=rwx ./entrypoint.sh
 USER certbot
 
-ENTRYPOINT ["sh", "entrypoint.sh"]
+ENTRYPOINT ["./entrypoint.sh"]

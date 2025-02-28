@@ -17,6 +17,7 @@ then
   exit 0
 fi
 
+echo "Updating certs with params dry_run:'$dry_run_flag', email:'$EMAIL', domains:'$DOMAINS'"
 ./venv/bin/certbot certonly --config-dir data/config --work-dir data/work --logs-dir data/log \
     $dry_run_flag \
     --standalone \
