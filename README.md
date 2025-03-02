@@ -10,12 +10,13 @@ There is something common between all services:
 * Built from the latest source
 * Use alpine:latest as a base image
 
-## Starting the system
-### Preparing the confgis
-Some of the services can start as is, but others (e.g. vpn server) require extra configuration and docker capabilities.
+And nginx webserver provides a frontend for the home assistant and other web-enabled things.
 
-### Starting the system
-It should be enough to run ```docker compose up``` to start the whole system.
+## Global configuration
+If the docker service is configured to run on system startup (e.g. by doing ```sudo systemctl enable docker```), then it will automatically start all the services after reboot
+
+## Service details
+It should be enough to run ```docker compose up``` to start the whole system. Some of the services can start as is, but others (e.g. vpn server) require extra configuration and docker capabilities.
 
 ## Openconnect
 ### Building

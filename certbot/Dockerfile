@@ -13,7 +13,7 @@ RUN python -m venv venv && . ./venv/bin/activate && \
 FROM alpine:latest
 LABEL org.opencontainers.image.authors="lans.rf@gmail.com"
 
-ENV EMAIL="" DOMAIN="" DRY_RUN=true
+ENV EMAIL="" DOMAINS="" DRY_RUN=true
 
 WORKDIR /certbot
 COPY --from=builder /certbot/dist ./dist
