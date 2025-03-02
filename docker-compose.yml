@@ -2,11 +2,13 @@ services:
   frontend:
     build: ./frontend
     ports:
-      - 80:8080
+      - 80:80
     restart: always
     depends_on:
       certbot:
         condition: service_completed_successfully    
+      homeassistant:
+        condition: service_started
   certbot:
     build: ./certbot
     ports:
@@ -47,9 +49,6 @@ services:
     volumes:
       - ./volumes/ha-config:/config
     restart: always
-    depends_on:
-      frontend:
-        condition: service_started
     deploy:
       resources:
         limits:
