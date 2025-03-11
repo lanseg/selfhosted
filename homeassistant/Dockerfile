@@ -2,7 +2,7 @@ FROM python:3.13-alpine AS builder
 LABEL org.opencontainers.image.authors="lans.rf@gmail.com"
 
 RUN apk update && \
-    apk add git gcc g++ python3-dev musl-dev linux-headers && \
+    apk add git gcc g++ python3-dev musl-dev linux-headers ffmpeg-dev && \
     mkdir -p /hass/dist/ && \
     git clone https://github.com/home-assistant/core /hass/core-src
 
@@ -17,7 +17,7 @@ LABEL Maintainer="lans.rf@gmail.com"
 
 COPY --from=builder /hass/dist /hass/dist
 RUN apk update --no-cache && \
-    apk add --no-cache gcc g++ make python3-dev musl-dev linux-headers && \
+    apk add --no-cache gcc g++ make python3-dev musl-dev linux-headers ffmpeg-dev && \
     addgroup -S hass && adduser -S hass -G hass && \
     chown -R hass:hass /hass
 
