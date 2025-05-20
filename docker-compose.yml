@@ -9,6 +9,12 @@ services:
         condition: service_completed_successfully    
       homeassistant:
         condition: service_started
+    deploy:
+      resources:
+        limits:
+          memory: 32M
+        reservations:
+          memory: 16M
   certbot:
     build: ./certbot
     ports:
@@ -29,7 +35,8 @@ services:
       - 443:443
     volumes:
       - ./volumes/ocserv/conf:/ocserv/conf
-      - ./volumes/certbot/config/archive:/cert
+      - ./volumes/certbot/config/live:/cert/live
+      - ./volumes/certbot/config/archive:/cert/archive
     restart: always
     depends_on:
       certbot:
